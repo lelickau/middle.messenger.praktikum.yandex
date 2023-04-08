@@ -1,0 +1,119 @@
+<section class="chat">
+    <div class="sidebar">
+      <a class="settings-profile" href="/profile">
+        <div class="settings-profile__ico">
+          <svg width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8 1.62296C8 0.794528 8.67157 0.122955 9.5 0.122955C10.1587 0.122955 10.7182 0.547486 10.9198 1.13785H12.5C12.7761 1.13785 13 1.36171 13 1.63785C13 1.91399 12.7761 2.13785 12.5 2.13785H10.9093C10.6992 2.71265 10.1475 3.12296 9.5 3.12296C8.67157 3.12296 8 2.45138 8 1.62296ZM0.5 1.15579C0.223858 1.15579 0 1.37965 0 1.65579C0 1.93193 0.223858 2.15579 0.5 2.15579H6.5C6.77614 2.15579 7 1.93193 7 1.65579C7 1.37965 6.77614 1.15579 6.5 1.15579H0.5ZM8 6.5C8 6.22386 8.22386 6 8.5 6H12.5C12.7761 6 13 6.22386 13 6.5C13 6.77614 12.7761 7 12.5 7H8.5C8.22386 7 8 6.77614 8 6.5ZM0.5 6C0.223858 6 0 6.22386 0 6.5C0 6.77614 0.223858 7 0.5 7H4.13507C4.37164 7.51748 4.89383 7.87704 5.5 7.87704C6.23052 7.87704 6.83907 7.35483 6.97271 6.66335C6.99039 6.61216 7 6.5572 7 6.5C7 6.48485 6.99933 6.46986 6.99801 6.45505C6.99933 6.42921 7 6.40321 7 6.37704C7 5.54862 6.32843 4.87704 5.5 4.87704C4.8018 4.87704 4.21501 5.35408 4.04778 6H0.5Z" fill="#6D7580"/>
+          </svg>
+        </div>
+        <span class="settings-profile__text">Профиль</span>
+      </a>
+      <div class="sidebar__search">
+        {{{ search }}}
+      </div>
+      <div class="sidebar__contacts">
+        <div class="contact contact--active">
+          <div class="contact__img-box">
+            <img class="contact__img" src="{{imageUrl}}" alt="Contact Image">
+          </div>
+          <div class="contact__content">
+            <div class="contact__content-header">
+              <div class="contact__name">Вадим</div>
+              <div class="contact__time">10:49</div>
+            </div>
+            <div class="contact__message">Вы: Круто!</div>
+          </div>
+        </div>
+        <div class="contact">
+          <div class="contact__img-box">
+            <img class="contact__img" src="{{imageUrl}}" alt="Contact Image">
+          </div>
+          <div class="contact__content">
+            <div class="contact__content-header">
+              <div class="contact__name">Вадим</div>
+              <div class="contact__time">10:49</div>
+            </div>
+            <div class="contact__message">Вы: Круто!</div>
+          </div>
+        </div>
+        <div class="contact">
+          <div class="contact__img-box">
+            <img class="contact__img" src="{{imageUrl}}" alt="Contact Image">
+          </div>
+          <div class="contact__content">
+            <div class="contact__content-header">
+              <div class="contact__name">Вадим</div>
+              <div class="contact__time">10:49</div>
+              <div class="contact__total-mess">4</div>
+            </div>
+            <div class="contact__message">Вы: Круто!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dialog-area">
+      <div class="dialog-area__header">
+        <div class="dialog-area__header-user">
+          <div class="dialog-area__header-img">
+            <img class="contact__img" src="{{imageUrl}}" alt="Contact Image">
+            {{wordName}}
+          </div>
+          <div class="dialog-area__header-name">{{name}}</div>
+        </div>
+        <div class="dialog-area__header-settings">
+          <div class="settings">
+            <div class="settings__item"></div>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-area__messages">
+        <div class="message-opp">
+          <p class="message-opp__text">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Сих выйти себя, взгляд, города возвращайся необходимыми меня предложения страну ipsum что свой свое инициал собрал даль даже, грамматики оксмокс грустный. Курсивных деревни злых переписывается маленький щеке залетают возвращайся не инициал повстречался что своих, безорфографичный там, рот за, буквенных парадигматическая?</p>
+          <div class="message-opp__time">
+            <div class="message-opp__status">
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line y1="-0.5" x2="3.87831" y2="-0.5" transform="matrix(0.726108 0.687581 -0.729937 0.683514 0 2.56738)" stroke="#EAEAEA"/>
+                <line y1="-0.5" x2="5.81747" y2="-0.5" transform="matrix(0.726108 -0.687581 0.729937 0.683514 2.88409 5.5)" stroke="#EAEAEA"/>
+                <line y1="-0.5" x2="5.81747" y2="-0.5" transform="matrix(0.726108 -0.687581 0.729937 0.683514 5.77203 5.5)" stroke="#EAEAEA"/>
+              </svg>
+            </div>
+            <div class="message-opp__time-text">12:30</div>
+          </div>
+        </div>
+        <div class="message-my">
+          <p class="message-my__text">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Сих выйти себя, взгляд, города возвращайся необходимыми меня предложения страну ipsum что свой свое инициал собрал даль даже, грамматики оксмокс грустный. Курсивных деревни злых переписывается маленький щеке залетают возвращайся не инициал повстречался что своих, безорфографичный там, рот за, буквенных парадигматическая?</p>
+          <div class="message-my__time">
+            <div class="message-my__status">
+              <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line y1="-0.5" x2="3.87831" y2="-0.5" transform="matrix(0.726108 0.687581 -0.729937 0.683514 0 2.56738)" stroke="#EAEAEA"/>
+                <line y1="-0.5" x2="5.81747" y2="-0.5" transform="matrix(0.726108 -0.687581 0.729937 0.683514 2.88409 5.5)" stroke="#EAEAEA"/>
+                <line y1="-0.5" x2="5.81747" y2="-0.5" transform="matrix(0.726108 -0.687581 0.729937 0.683514 5.77203 5.5)" stroke="#EAEAEA"/>
+              </svg>
+            </div>
+            <div class="message-my__time-text">12:30</div>
+          </div>
+        </div>
+      </div>
+      <div class="send-form">
+        <div class="send-form__menu">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.18662 12.5L13.7628 4.92389L14.7056 5.8667L7.12943 13.4428L6.18662 12.5Z" fill="#6D7580"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.70067 15.0141L16.2768 7.43793L17.2196 8.38074L9.64348 15.9569L8.70067 15.0141Z" fill="#6D7580"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.0433 20.3567L21.6195 12.7806L22.5623 13.7234L14.9861 21.2995L14.0433 20.3567Z" fill="#6D7580"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5574 22.8708L24.1335 15.2946L25.0763 16.2374L17.5002 23.8136L16.5574 22.8708Z" fill="#6D7580"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16.5574 22.8709C13.9423 25.486 9.71181 25.4954 7.10831 22.8919C4.50482 20.2884 4.51424 16.0579 7.12936 13.4428L6.18655 12.5C3.0484 15.6381 3.0371 20.7148 6.16129 23.839C9.28549 26.9632 14.3621 26.9518 17.5003 23.8137L16.5574 22.8709Z" fill="#6D7580"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M21.6195 12.7806L22.5623 13.7234C25.003 11.2826 25.0118 7.3341 22.5819 4.90417C20.152 2.47424 16.2035 2.48303 13.7627 4.92381L14.7055 5.86662C16.6233 3.94887 19.7257 3.94196 21.6349 5.85119C23.5441 7.76042 23.5372 10.8628 21.6195 12.7806Z" fill="#6D7580"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M8.70092 15.0144C6.95751 16.7578 6.95123 19.5782 8.68689 21.3138C10.4226 23.0495 13.2429 23.0432 14.9863 21.2998L14.0435 20.357C12.8231 21.5774 10.8489 21.5818 9.63391 20.3668C8.41894 19.1518 8.42334 17.1776 9.64373 15.9572L8.70092 15.0144Z" fill="#6D7580"/>
+          </svg>
+        </div>
+        <label class="send-input">
+          <input class="send-input__input" placeholder="Сообщение" type="text" name="message">
+        </label>
+        <button class="send-btn">
+          <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M9.33554 6.79995H0V5.19995H9.33546L6.37531 1.49976L7.62469 0.500244L11.6247 5.50024L12.0245 6L11.6247 6.49976L7.62469 11.4998L6.37531 10.5002L9.33554 6.79995Z" fill="white"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
