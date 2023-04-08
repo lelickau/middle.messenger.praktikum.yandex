@@ -1,0 +1,236 @@
+@import '../../../styles/_vars.scss';
+
+.dialog-area {
+    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 67px 20px;
+
+    &__header {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 0;
+        top: 0;
+        left: 20px;
+        right: 20px;
+        border-bottom: 1px solid $border;
+    }
+
+    &__header-user {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__header-img {
+        position: relative;
+        width: 47px;
+        height: 47px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: $accent;
+        border: 1px solid $ava-border;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 25px;
+        line-height: 30px;
+        color: $bg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+    }
+
+    &__header-name {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    &__messages {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        height: 100%;
+        gap: 15px;
+        padding: 20px 0;
+    }
+}
+
+.chat-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow-y: auto;
+  
+    &__text {
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 400;
+      color: $sub-text;
+    }
+  }
+  
+.settings {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $accent;
+    border-radius: 50%;
+  
+    &__item {
+      position: relative;
+      width: 3px;
+      height: 3px;
+      background-color: $bg;
+      border-radius: 50%;
+    }
+  
+    &__item::after,
+    &__item::before {
+      position: absolute;
+      content: '';
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background-color: $bg;
+    }
+  
+    &__item::after {
+      top: 0;
+      left: -5px;
+    }
+  
+    &__item::before {
+      top: 0;
+      right: -5px;
+    }
+  }
+  
+.send-form {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px 0;
+    bottom: 0;
+    left: 20px;
+    right: 20px;
+    border-top: 1px solid $border;
+  
+    &__menu {
+      cursor: pointer;
+  
+      svg {
+        pointer-events: none;
+      }
+    }
+  }
+  
+.send-input {
+    display: block;
+    width: 100%;
+  
+    &__input {
+      width: 100%;
+      padding: 10px 20px;
+      background-color: $sub-bg;
+      border-radius: 30px;
+      color: $text;
+      border: none;
+    }
+  
+    &::placeholder {
+      color: $sub-text;
+    }
+  }
+  
+.send-btn {
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $accent;
+    border: none;
+    border-radius: 50%;
+  
+    svg {
+      pointer-events: none;
+    }
+  }
+  
+.message-opp,
+.message-my {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 11px 11px 24px;
+    max-width: 65%;
+  
+    &__text {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      color: $text;
+    }
+  
+    &__time {
+      position: absolute;
+      display: flex;
+      gap: 4px;
+      right: 11px;
+      bottom: 11px;
+    }
+  
+    &__status {
+      display: flex;
+      align-items: flex-end;
+    }
+  
+    &__time-text {
+      font-weight: 400;
+      font-size: 9px;
+      line-height: 9px;
+      color: $bg;
+    }
+  }
+  
+.message-opp {
+    background: $sub-bg;
+    border-radius: 0 12px 12px 12px;
+  
+    &__time-text {
+      color: $sub-text;
+    }
+  }
+  
+.message-my {
+    background: $accent;
+    border-radius: 12px 12px 0 12px;
+    margin: 0 0 0 auto;
+    
+    &__text {
+      color: $bg;
+    }
+}
+  

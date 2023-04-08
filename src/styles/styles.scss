@@ -1,0 +1,46 @@
+@import './_vars.scss';
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  color: $text;
+}
+
+.mt-50 {
+  margin-top: 50px;
+}
+
+.mt-40 {
+  margin-top: 40px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.error {
+  position: absolute;
+  padding-left: 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: $error;
+}
+
+@import './input.scss';
+@import './button.scss';
+@import './auth.scss';
+@import './sub-btn.scss';
+@import './error-found.scss';
+
+.hidden {
+  display: none;
+}

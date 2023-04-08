@@ -1,0 +1,91 @@
+@import '../../styles/_vars.scss';
+
+.chat {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+}
+
+.settings-profile {
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+
+  &__text {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: $sub-text;
+  }
+  
+}
+
+.contact,
+.contact--active {
+  padding: 10px 15px;
+  border-radius: 14px;
+}
+
+.contact {
+  cursor: pointer;
+  background-color: $sub-bg;
+  display: grid;
+  grid-template-columns: 47px 1fr;
+  gap: 10px;
+
+  &--active {
+    background-color: $bg;
+  }
+
+  &__content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  &__content-header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__name {
+    margin-top: 7px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 13px;
+    color: $text;
+  }
+
+  &__message {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: $text;
+  }
+  &__total-mess {
+    position: absolute;
+    min-width: 20px;
+    height: 20px;
+    padding: 4px 6px;
+    right: 0;
+    top: 25px;
+    background-color: $accent;
+    border-radius: 50px;
+    color: $bg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 12px;
+  }
+
+  &__time {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 13px;
+    color: $sub-text;
+  }
+}
