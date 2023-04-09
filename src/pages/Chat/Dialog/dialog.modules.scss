@@ -161,11 +161,18 @@
       color: $sub-text;
     }
   }
+
+.send {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
   
 .send-btn {
     cursor: pointer;
-    width: 28px;
-    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
