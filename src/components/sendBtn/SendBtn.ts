@@ -1,11 +1,7 @@
 import Block from '../../packages/block/Block'
 import template from './sendBtn.hbs'
 
-export interface SendBtnProps {
-  events: {
-    click: (e: Event) => void
-  }
-}
+export interface SendBtnProps {}
 
 class SendBtn extends Block<SendBtnProps> {
   constructor(props: SendBtnProps) {

@@ -1,11 +1,13 @@
+import { NavLink } from '../../components/navLink/NavLink'
+import { SigninData } from '../../api/AuthAPI'
 import Block from '../../packages/block/Block'
 import checkInputValidation from '../../helpers/checkInputValidation'
 import setDisableBtn from '../../helpers/setDisableBtn'
 import showPassword from '../../helpers/showPassword'
 import Button from '../../components/button/Button'
 import Label from '../../components/inputElement/label/Label'
-import NavLink from '../../components/navLink/NavLink'
-import loginTmp from './login.hbs'
+import AuthController from '../../controllers/AuthController'
+import template from './login.hbs'
 
 class LoginPage extends Block {
   constructor() {
@@ -88,24 +90,28 @@ class LoginPage extends Block {
           const target = e.target as HTMLInputElement
           const parent = target.closest('.auth__form') as HTMLFormElement
           const inputs = parent.querySelectorAll('.input__input')
-          let formValues = {}
+          let formValues: any = {}
           inputs.forEach((input: any) => {
             formValues = { ...formValues, [input.name]: input.value }
           })
-          console.log(formValues)
+          this.onSubmit(formValues)
         }
       }
     })
 
     this.children.navLink = new NavLink({
-      to: '/signup',
+      to: '/sign-up',
       linkText: 'Нет аккаунта?',
       events: { click: () => {}}
     })
   }
 
+  onSubmit(data: SigninData) {
+    AuthController.signin(data as SigninData)
+  }
+
   render() {
-    return this.compile(loginTmp, {
+    return this.compile(template, {
       ...this.props,
       title: 'Вход'
     })

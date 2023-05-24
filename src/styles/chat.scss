@@ -44,7 +44,7 @@
     border-radius: 50%;
     align-items: center;
     justify-content: center;
-    border: 3px solid #fff;
+    border: 3px solid $accent;
   }
 
   &__img {
@@ -93,6 +93,9 @@
     font-size: 12px;
     line-height: 15px;
     color: $text;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   &__total-mess {

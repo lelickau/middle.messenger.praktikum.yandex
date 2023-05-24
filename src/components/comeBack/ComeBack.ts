@@ -1,16 +1,26 @@
+import { PropsWithRouter, withRouter } from '../../hocs/withRouter'
 import Block from '../../packages/block/Block'
 import template from './comeBack.hbs'
 
-interface ComeBackProps {
+interface ComeBackProps extends PropsWithRouter {
   to: string
   events: {
     click: () => void
   }
 }
 
-class ComeBack extends Block<ComeBackProps> {
+class NavComeBack extends Block<ComeBackProps> {
   constructor(props: ComeBackProps) {
-    super(props)
+    super({
+      ...props,
+      events: {
+        click: () => this.navigate()
+      }
+    })
+  }
+
+  navigate() {
+    this.props.router.go(this.props.to)
   }
 
   render() {
@@ -18,4 +28,4 @@ class ComeBack extends Block<ComeBackProps> {
   }
 }
 
-export default ComeBack
+export const ComeBack = withRouter(NavComeBack)

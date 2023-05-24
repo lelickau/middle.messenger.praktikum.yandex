@@ -1,0 +1,13 @@
+<div class="dialog-area">
+  {{#if selectedId}}
+    {{{ chatHeader }}}
+    {{{chatDialogMessages}}}
+    <div class="send-form">
+        {{{ send }}}
+    </div>
+  {{else}}
+    <div class="chat-area">
+      <p class="chat-area__text">Выберите чат чтобы начать</p>
+    </div>
+  {{/if}}
+</div>

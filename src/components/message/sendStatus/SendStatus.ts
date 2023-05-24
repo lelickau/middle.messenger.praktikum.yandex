@@ -1,10 +1,10 @@
 import Block from '../../../packages/block/Block'
 import template from './sendStatus.hbs'
 
-export interface SendStatusProps {}
+export interface ISendStatusProps {}
 
-class SendStatus extends Block<SendStatusProps> {
-  constructor(props: SendStatusProps) {
+class SendStatus extends Block<ISendStatusProps> {
+  constructor(props: ISendStatusProps) {
     super(props)
   }
 

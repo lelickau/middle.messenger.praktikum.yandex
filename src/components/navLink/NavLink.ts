@@ -1,7 +1,8 @@
+import { PropsWithRouter, withRouter } from '../../hocs/withRouter'
 import Block from '../../packages/block/Block'
 import template from './navLink.hbs'
 
-interface NavLinkProps {
+interface NavLinkProps extends PropsWithRouter {
   to: string
   linkText: string
   events: {
@@ -9,9 +10,18 @@ interface NavLinkProps {
   }
 }
 
-export class NavLink extends Block<NavLinkProps> {
+class Link extends Block<NavLinkProps> {
   constructor(props: NavLinkProps) {
-    super(props)
+    super({
+      ...props,
+      events: {
+        click: () => this.navigate()
+      }
+    })
+  }
+
+  navigate() {
+    this.props.router.go(this.props.to)
   }
 
   render() {
@@ -19,4 +29,4 @@ export class NavLink extends Block<NavLinkProps> {
   }
 }
 
-export default NavLink
+export const NavLink = withRouter(Link)

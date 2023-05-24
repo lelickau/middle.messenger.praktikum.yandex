@@ -57,6 +57,20 @@
       text-align: left;
     }
   }
+
+  &__img-box {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 20px;
+
+    img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+    }
+  }
 }
 
 .come-back {

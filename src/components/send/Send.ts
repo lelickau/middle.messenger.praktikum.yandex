@@ -7,7 +7,7 @@ interface SendProps {
   sendInput: SendInputProps
   sendBtn: SendBtnProps
   events: {
-    click: (e: Event) => void
+    submit: (e: Event) => void
   }
 }
 

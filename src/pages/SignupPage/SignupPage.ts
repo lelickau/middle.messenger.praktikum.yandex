@@ -1,13 +1,15 @@
+import { SignupData } from '../../api/AuthAPI'
+import { NavLink } from '../../components/navLink/NavLink'
+import Block from '../../packages/block/Block'
+import AuthController from '../../controllers/AuthController'
 import Button from '../../components/button/Button'
 import Label from '../../components/inputElement/label/Label'
-import NavLink from '../../components/navLink/NavLink'
 import capitalizeFirstLetter from '../../helpers/capitalizeFirstLetter'
 import checkInputValidation from '../../helpers/checkInputValidation'
 import checkRepPass from '../../helpers/checkRepPass'
 import setDisableBtn from '../../helpers/setDisableBtn'
 import showPassword from '../../helpers/showPassword'
-import Block from '../../packages/block/Block'
-import signupTmp from './signup.hbs'
+import template from './signup.hbs'
 
 class SignupPage extends Block {
   constructor() {
@@ -276,7 +278,7 @@ class SignupPage extends Block {
           inputs.forEach((input: any) => {
             formValues = { ...formValues, [input.name]: input.value }
           })
-          console.log(formValues)
+          this.onSubmit(formValues)
         }
       }
     })
@@ -288,8 +290,12 @@ class SignupPage extends Block {
     })
   }
 
+  onSubmit(data: any) {
+    AuthController.signup(data as SignupData)
+  }
+
   render () {
-    return this.compile(signupTmp, {
+    return this.compile(template, {
       ...this.props,
       title: 'Регистрация'
     })

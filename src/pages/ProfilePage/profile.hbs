@@ -4,12 +4,9 @@
     {{{ avatar }}}
     <h1 class="profile__name">{{title}}</h1>
     <ul class="profile__list">
-      {{{ mail }}}
-      {{{ login}}}
-      {{{ name }}}
-      {{{ lastName }}}
-      {{{ chatName }}}
-      {{{ tel }}}
+      {{#each info}}
+        {{{this}}}
+      {{/each}}
     </ul>
     <div class="profile__btns mt-50">
       <div class="profile__btn-item">
