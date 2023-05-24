@@ -18,6 +18,13 @@
   font-family: Nunito, sans-serif;
 }
 
+html, body {
+  scrollbar-color: $accent $ava-border;
+  scrollbar-width: thin;
+
+  
+}
+
 .title {
   font-weight: 700;
   font-size: 24px;
@@ -48,6 +55,77 @@
   font-size: 12px;
   line-height: 18px;
   color: $error;
+}
+
+.create-chat {
+  width: fit-content;
+  padding: 10px 15px;
+  cursor: pointer;
+  background-color: $accent;
+  color: $bg;
+  font-size: 14px;
+  border-radius: 10px;
+  border: none;
+}
+
+.modals {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: none;
+
+  &__show {
+    display: flex;
+  }
+
+  &__card {
+    position: relative;
+    background-color: $bg;
+    padding: 30px;
+    border-radius: 10px;
+    z-index: 9999;
+    -webkit-box-shadow: 0px 2px 8px 0px rgba(34, 60, 80, 0.2);
+    -moz-box-shadow: 0px 2px 8px 0px rgba(34, 60, 80, 0.2);
+    box-shadow: 0px 2px 8px 0px rgba(34, 60, 80, 0.2);
+  }
+
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr 42px;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .error {
+    padding-left: 0;
+  }
+}
+
+.user-item {
+  cursor: pointer;
+  padding: 10px 12px;
+  margin: 5px 0;
+  background-color: $bg;
+  border-radius: 10px;
+  color: $accent;
+  font-size: 16px;
+  font-weight: 700;
+
+  &__active {
+    background-color: $sub-bg;
+  }
+}
+
+.modals-close {
+  position: absolute;
+  top: -80px;
+  right: -20px;
+  z-index: 500;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
 }
 
 .hidden {

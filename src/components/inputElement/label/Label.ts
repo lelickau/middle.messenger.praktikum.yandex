@@ -1,11 +1,11 @@
 import Block from '../../../packages/block/Block'
 import template from './label.hbs'
-import Input, { InputProps } from '../input/Input'
-import EyePass, { EyePassProps } from '../eyePass/EyePass'
+import Input, { IInputProps } from '../input/Input'
+import EyePass, { IEyePassProps } from '../eyePass/EyePass'
 
 interface LabelProps {
-  input: InputProps
-  eye?: EyePassProps | any
+  input: IInputProps
+  eye?: IEyePassProps | any
   error: string
   id: string
   label: string

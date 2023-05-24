@@ -1,11 +1,12 @@
+import { ComeBack } from '../../components/comeBack/ComeBack'
+import Block from '../../packages/block/Block'
 import Button from '../../components/button/Button'
-import ComeBack from '../../components/comeBack/ComeBack'
 import Label from '../../components/inputElement/label/Label'
+import ProfileController from '../../controllers/ProfileController'
 import checkInputValidation from '../../helpers/checkInputValidation'
 import setDisableBtn from '../../helpers/setDisableBtn'
 import showPassword from '../../helpers/showPassword'
-import Block from '../../packages/block/Block'
-import editPasswordTmp from './editPassword.hbs'
+import template from './editPassword.hbs'
 
 class EditPasswordPage extends Block {
   constructor() {
@@ -17,7 +18,7 @@ class EditPasswordPage extends Block {
 
   init() {
     this.children.comeBack = new ComeBack({
-      to: '/profile',
+      to: '/settings',
       events: { click: () => {}}
     })
 
@@ -161,14 +162,18 @@ class EditPasswordPage extends Block {
           inputs.forEach((input: any) => {
             formValues = { ...formValues, [input.name]: input.value }
           })
-          console.log(formValues)
+          this.onSubmit(formValues)
         }
       }
     })
   }
 
+  onSubmit(data: any) {
+    ProfileController.updatePassword(data)
+  }
+
   render() {
-    return this.compile(editPasswordTmp, {
+    return this.compile(template, {
       ...this.props,
       title: 'Сменить пароль'
     })

@@ -1,15 +1,15 @@
 import Block from '../../../packages/block/Block'
 import template from './eyePass.hbs'
 
-export interface EyePassProps {
+export interface IEyePassProps {
   class: string
   events: {
     click: (e: Event) => void
   }
 }
 
-class EyePass extends Block<EyePassProps> {
-  constructor(props: EyePassProps) {
+class EyePass extends Block<IEyePassProps> {
+  constructor(props: IEyePassProps) {
     super(props)
   }
 

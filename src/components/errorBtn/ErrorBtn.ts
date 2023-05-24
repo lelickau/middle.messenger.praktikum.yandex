@@ -1,15 +1,15 @@
 import Block from '../../packages/block/Block'
 import template from './errorBtn.hbs'
 
-interface ErrorBtnProps {
+interface IErrorBtnProps {
   label: string
   events: {
     click: () => void
   }
 }
 
-class ErrorBtn extends Block<ErrorBtnProps> {
-  constructor(props: ErrorBtnProps) {
+class ErrorBtn extends Block<IErrorBtnProps> {
+  constructor(props: IErrorBtnProps) {
     super(props)
   }
 

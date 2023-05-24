@@ -1,10 +1,9 @@
-import queryStringify from "../../helpers/queryStringify"
-
 enum Methods {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
-  DELETE = 'DELETE'
+  DELETE = 'DELETE',
+  PATCH = 'PATCH'
 }
 
 type Options = {
@@ -13,21 +12,43 @@ type Options = {
 }
 
 class HTTPTransport {
-  public get<Response>(url: string, options: Options): Promise<Response> {
-    const queryStr = queryStringify(options.data)
-		return this.request<Response>(`${url+queryStr}`, { method: Methods.GET})
-	}
+  static API_URL = 'https://ya-praktikum.tech/api/v2'
+  protected endpoint: string
+
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
+  }
+
+  public get<Response>(path = '/'): Promise<Response> {
+    return this.request<Response>(this.endpoint + path)
+  }
   
-  public post<Response = void>(url: string, options: Options, data?: any): Promise<Response> {
-    return this.request(url, {...options, method: Methods.POST, data })
+  public post<Response = void>(path: string, data?: unknown): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: Methods.POST,
+      data
+    })
   }
 
-  public put<Response = void>(url: string, options: Options, data?: any): Promise<Response> {
-    return this.request(url, {...options, method: Methods.PUT, data })
+  public put<Response = void>(path: string, data: unknown): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: Methods.PUT,
+      data
+    })
   }
 
-  public delete<Response>(url: string, options: Options, data?: any): Promise<Response> {
-    return this.request(url, {...options, method: Methods.DELETE, data })
+  public patch<Response = void>(path: string, data: unknown): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: Methods.PATCH,
+      data
+    })
+  }
+
+  public delete<Response>(path: string, data?: unknown): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: Methods.DELETE,
+      data
+    })
   }
 
 	private request<Response>(
@@ -49,17 +70,19 @@ class HTTPTransport {
         }
       }
 
-      xhr.onabort = reject
-      xhr.onerror = reject
-      xhr.ontimeout = reject
+      xhr.onabort = () => reject({reason: 'abort'})
+      xhr.onerror = () => reject({reason: 'network error'})
+      xhr.ontimeout = () => reject({reason: 'timeout'})
 
-      xhr.setRequestHeader('Content-Type', 'application/json')
       xhr.withCredentials = true
       xhr.responseType = 'json'
-
+      
       if (method === Methods.GET || !data) {
         xhr.send()
+      } else if (data instanceof FormData) { 
+        xhr.send(data)
       } else {
+        xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.send(JSON.stringify(data))
       }
     })

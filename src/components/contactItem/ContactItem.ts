@@ -1,31 +1,27 @@
 import Block from '../../packages/block/Block'
-import TotalMess, { TotalMessProps } from './totalMess/TotalMess'
-import Avatar, { AvatarProps } from './avatar/Avatar'
+import { TotalMessProps } from './totalMess/TotalMess'
+import Avatar, { IAvatarProps } from './avatar/Avatar'
 import template from './contactItem.hbs'
 
-interface ButtonProps {
+interface IButtonProps {
   activeClass: string
-  avatar: AvatarProps
-  nameLetter: string
-  contactName: string
-  time: string
-  total: TotalMessProps
-  lastMess: string
-  events: {
+  avatar: IAvatarProps
+  nameLetter?: string
+  title: string
+  time: string | null
+  total?: TotalMessProps
+  message: string
+  events?: {
     click: () => void
   }
 }
 
-class ContactItem extends Block<ButtonProps> {
-  constructor(props: ButtonProps) {
+class ContactItem extends Block<IButtonProps> {
+  constructor(props: IButtonProps) {
     super(props)
   }
 
   init() {
-    this.children.totalMass = new TotalMess({
-      ...this.props.total
-    })
-
     this.children.avatar = new Avatar({
       ...this.props.avatar
     })
