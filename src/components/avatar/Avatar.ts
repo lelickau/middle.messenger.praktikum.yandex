@@ -1,5 +1,6 @@
 import Block from '../../packages/block/Block'
 import template from './avatar.hbs'
+import defImg from '../../static/img/def-img.png'
 
 interface AvatarProps {
   src: string
@@ -12,7 +13,7 @@ class Avatar extends Block<AvatarProps> {
   }
 
   render() {
-    return this.compile(template, { ...this.props })
+    return this.compile(template, { ...this.props, defImg })
   }
 }
 

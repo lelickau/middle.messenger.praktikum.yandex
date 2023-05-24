@@ -1,13 +1,28 @@
-import notFoundTmp from './notFound.hbs'
+import { NavLink } from '../../components/navLink/NavLink'
+import Block from '../../packages/block/Block'
+import template from './notFound.hbs'
 
-const NotFound = () => {
-  const content = {
-    code: '404',
-    text: 'Не туда попали',
-    linkText: 'Назад к чатам'
+class NotFound extends Block {
+  constructor() {
+    super({
+      code: '404',
+      text: 'Не туда попали'
+    })
   }
 
-  return notFoundTmp(content)
+  init() {
+    this.children.link = new NavLink({
+      to: '/messenger',
+      linkText: 'Назад к чатам'
+    })
+  }
+
+  render() {
+    return this.compile(template, {
+      ...this.props
+    })
+  }
+
 }
 
 export default NotFound

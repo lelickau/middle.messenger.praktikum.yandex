@@ -1,24 +1,7 @@
 <section class="chat">
-  <div class="sidebar">
-    {{{ settingsBtn }}}
-    <div class="sidebar__search">
-      {{{ search }}}
-    </div>
-    <ul class="sidebar__contacts">
-      {{#each nodesData}}
-        {{{this}}}
-      {{/each}}
-    </ul>
-  </div>
-  <div class="dialog-area">
-    {{{ header }}}
-    <div class="dialog-area__messages">
-      {{{ myMessage2 }}}
-      {{{ myMessage }}}
-    </div>
-    <div class="send-form">
-        {{{ sendFile }}}
-        {{{ send }}}
-    </div>
-  </div>
+  {{{chatSidebar}}}
+  {{{chatDialog}}}
+  {{{modalsCreateChat}}}
+  {{{modalsAddUser}}}
+  {{{modalsDelete}}}
 </section>

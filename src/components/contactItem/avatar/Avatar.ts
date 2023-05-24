@@ -1,17 +1,18 @@
 import Block from '../../../packages/block/Block'
 import template from './avatar.hbs'
+import defAvatar from '../../../static/img/def-img.png'
 
-export interface AvatarProps {
+export interface IAvatarProps {
   src: string
 }
 
-class Avatar extends Block<AvatarProps> {
-  constructor(props: AvatarProps) {
+class Avatar extends Block<IAvatarProps> {
+  constructor(props: IAvatarProps) {
     super(props)
   }
 
   render() {
-    return this.compile(template, { ...this.props })
+    return this.compile(template, { ...this.props, defAvatar })
   }
 }
 

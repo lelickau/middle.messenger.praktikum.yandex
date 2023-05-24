@@ -1,6 +1,7 @@
 import Block from '../../../packages/block/Block'
 import InputUpload, { InputUploadProps } from '../inputUpload/InputUpload'
 import template from './labelUpload.hbs'
+import defImg from '../../../static/img/def-img.png'
 
 interface LabelUploadProps {
   input: InputUploadProps
@@ -9,10 +10,6 @@ interface LabelUploadProps {
 
 
 class LabelUpload extends Block<LabelUploadProps> {
-  constructor(props: LabelUploadProps) {
-    super(props)
-  }
-
   init() {
     this.children.inputUpload = new InputUpload({
       ...this.props.input
@@ -20,7 +17,7 @@ class LabelUpload extends Block<LabelUploadProps> {
   }
 
   render() {
-    return this.compile(template, { ...this.props })
+    return this.compile(template, { ...this.props, defImg })
   }
 }
 

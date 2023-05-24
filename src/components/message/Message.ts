@@ -1,16 +1,16 @@
 import Block from '../../packages/block/Block'
-import SendStatus, { SendStatusProps } from './sendStatus/SendStatus'
+import SendStatus, { ISendStatusProps } from './sendStatus/SendStatus'
 import template from './message.hbs'
 
-interface MyMessageProps {
-  status: SendStatusProps
+interface IMyMessageProps {
+  status: ISendStatusProps
   text: string
   className: string
   time: string
 }
 
-class MyMessage extends Block<MyMessageProps> {
-  constructor(props: MyMessageProps) {
+class MyMessage extends Block<IMyMessageProps> {
+  constructor(props: IMyMessageProps) {
     super(props)
   }
 

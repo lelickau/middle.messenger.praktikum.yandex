@@ -1,11 +1,12 @@
 import Block from '../../../packages/block/Block'
 import template from './input.hbs'
 
-export interface InputProps {
+export interface IInputProps {
   type: string
   name: string
   id: string
   label: string
+  value?: string
   events: {
     input: (e: Event) => void
     blur: (e: Event) => void
@@ -13,8 +14,8 @@ export interface InputProps {
   }
 }
 
-class Input extends Block<InputProps> {
-  constructor(props: InputProps) {
+class Input extends Block<IInputProps> {
+  constructor(props: IInputProps) {
     super(props)
   }
 

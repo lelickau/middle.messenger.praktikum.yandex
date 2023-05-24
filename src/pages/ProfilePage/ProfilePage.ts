@@ -1,65 +1,43 @@
-import profileTmp from './profile.hbs'
-import img from '../../static/img/def-img.png'
+import { withStore } from '../../packages/store/Store'
+import { ComeBack } from '../../components/comeBack/ComeBack'
+import { NavLink } from '../../components/navLink/NavLink'
 import Block from '../../packages/block/Block'
-import ComeBack from '../../components/comeBack/ComeBack'
 import Avatar from '../../components/avatar/Avatar'
 import ProfileElement from '../../components/profileElement/ProfileElement'
-import NavLink from '../../components/navLink/NavLink'
 import ErrorBtn from '../../components/errorBtn/ErrorBtn'
+import AuthController from '../../controllers/AuthController'
+import template from './profile.hbs'
 
-class ProfilePage extends Block {
-  constructor() {
-    super({})
-  }
+const dataInfo = [
+  { title: 'Почта', value: 'email' },
+  { title: 'Логин', value: 'login' },
+  { title: 'Имя', value: 'first_name' },
+  { title: 'Фамилия', value: 'second_name' },
+  { title: 'Имя в чате', value: 'display_name' },
+  { title: 'Телефон', value: 'phone' }
+]
+
+class Profile extends Block {
 
   init() {
     this.children.comeBack = new ComeBack({
-      to: '/chat',
+      to: '/messenger',
       events: { click: () => {} }
     })
 
     this.children.avatar = new Avatar({
-      src: img,
+      src: this.props.data?.avatar,
       alt: 'Аватар не загрузился'
     })
 
-    this.children.avatar = new Avatar({
-      src: img,
-      alt: 'Аватар не загрузился'
-    })
-
-    this.children.mail = new ProfileElement({
-      title: 'Почта',
-      value: 'pochta@yandex.ru'
-    })
-
-    this.children.login = new ProfileElement({
-      title: 'Логин',
-      value: 'ivanivanov'
-    })
-
-    this.children.name = new ProfileElement({
-      title: 'Имя',
-      value: 'Иван'
-    })
-
-    this.children.lastName = new ProfileElement({
-      title: 'Фамилия',
-      value: 'Иванов'
-    })
-
-    this.children.chatName = new ProfileElement({
-      title: 'Имя в чате',
-      value: 'ИванXX'
-    })
-
-    this.children.tel = new ProfileElement({
-      title: 'Телефон',
-      value: '+7 (909) 967 30 30'
+    this.children.info = dataInfo.map((info) => {
+      return new ProfileElement({
+        title: info.title, value: this.props?.data[info.value]
+      })
     })
 
     this.children.editProfile = new NavLink({
-      to: '/profile-edit',
+      to: '/settings-edit',
       linkText: 'Изменить данные',
       events: {
         click: () => {}
@@ -67,7 +45,7 @@ class ProfilePage extends Block {
     })
 
     this.children.EditPassword = new NavLink({
-      to: '/edit-pass',
+      to: '/settings-reset',
       linkText: 'Изменить пароль',
       events: {
         click: () => {}
@@ -77,17 +55,23 @@ class ProfilePage extends Block {
     this.children.logout = new ErrorBtn({
       label: 'Выйти',
       events: {
-        click: () => {}
+        click: () => {
+          AuthController.logout()
+        }
       }
     })
   }
 
   render() {
-    return this.compile(profileTmp, {
+    return this.compile(template, {
       ...this.props,
       title: 'Иван'
     })
   }
 }
 
-export default ProfilePage
+const withUser = withStore((state) => {
+  return { ...state.user }
+})
+
+export const ProfilePage = withUser(Profile)

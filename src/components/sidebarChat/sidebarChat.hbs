@@ -1,0 +1,14 @@
+<div class="sidebar">
+  <div class="sidebar__btns">
+    {{{ createChat }}}
+    {{{ settingsBtn }}}
+  </div>
+  <div class="sidebar__search">
+    {{{ search }}}
+  </div>
+  <ul class="sidebar__contacts">
+    {{#each nodesData}}
+      {{{this}}}
+    {{/each}}
+  </ul>
+</div>

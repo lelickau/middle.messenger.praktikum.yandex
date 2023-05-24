@@ -1,7 +1,8 @@
+import { PropsWithRouter, withRouter } from '../../hocs/withRouter'
 import Block from '../../packages/block/Block'
 import template from './settingsBtn.hbs'
 
-interface SettingsBtnProps {
+interface SettingsBtnProps extends PropsWithRouter {
   to: string
   title: string
   events: {
@@ -9,9 +10,18 @@ interface SettingsBtnProps {
   }
 }
 
-class SettingsBtn extends Block<SettingsBtnProps> {
+class SettingsBtnLink extends Block<SettingsBtnProps> {
   constructor(props: SettingsBtnProps) {
-    super(props)
+    super({
+      ...props,
+      events: {
+        click: () => this.navigate()
+      }
+    })
+  }
+
+  navigate() {
+    this.props.router.go(this.props.to)
   }
 
   render() {
@@ -19,4 +29,4 @@ class SettingsBtn extends Block<SettingsBtnProps> {
   }
 }
 
-export default SettingsBtn
+export const SettingsBtn = withRouter(SettingsBtnLink)

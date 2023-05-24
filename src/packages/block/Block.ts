@@ -12,7 +12,7 @@ class Block<P extends Record<string, any> = any> {
 
   public id = nanoid(8)
   protected props: P
-  public children: Record<string, Block | Block[]>
+  public children: Record<string, any>
   private eventBus: () => EventBus
   private _element: HTMLElement | null = null
 
@@ -55,6 +55,14 @@ class Block<P extends Record<string, any> = any> {
 
     Object.keys(events).forEach(eventName => {
       this._element?.addEventListener(eventName, events[eventName])
+    })
+  }
+  
+  private _removeEvents() {
+    const {events = {}} = this.props as P
+
+    Object.keys(events).forEach(eventName => {
+      this._element?.removeEventListener(eventName, events[eventName])
     })
   }
 
@@ -115,6 +123,7 @@ class Block<P extends Record<string, any> = any> {
 
   private _render() {
     const fragment = this.render()
+    this._removeEvents()
 
     const newElement = fragment.firstElementChild as HTMLElement
 
