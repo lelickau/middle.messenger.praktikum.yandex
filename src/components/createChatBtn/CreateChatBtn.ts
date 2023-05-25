@@ -2,6 +2,7 @@ import Block from '../../packages/block/Block'
 import template from './createChatBtn.hbs'
 
 export interface ICreateChatBtnProps {
+  isDel?: boolean
   events: {
     click: (e: Event) => void
   }

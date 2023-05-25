@@ -1,11 +1,11 @@
 import Block from '../../packages/block/Block'
 import { TotalMessProps } from './totalMess/TotalMess'
-import Avatar, { IAvatarProps } from './avatar/Avatar'
+import defAvatar from '../../static/img/def-img.png'
 import template from './contactItem.hbs'
 
 interface IButtonProps {
   activeClass: string
-  avatar: IAvatarProps
+  avatar: string
   nameLetter?: string
   title: string
   time: string | null
@@ -21,15 +21,9 @@ class ContactItem extends Block<IButtonProps> {
     super(props)
   }
 
-  init() {
-    this.children.avatar = new Avatar({
-      ...this.props.avatar
-    })
-  }
-
   render() {
     return this.compile(template, {
-      ...this.props
+      ...this.props, defAvatar
     })
   }
 }

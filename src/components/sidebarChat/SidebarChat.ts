@@ -27,10 +27,9 @@ class SidebarChatArea extends Block {
       }
     })
   }
-
+  
   protected componentDidUpdate(_: any, newProps: any): boolean {
     this.children.nodesData = this.createChats(newProps)
-
     return true
   }
 
