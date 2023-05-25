@@ -39,7 +39,6 @@ class DialogChatsArea extends Block {
   }
 
   componentDidUpdate(_: any, newProps: any) {
-    console.log('header', newProps.selectedId)
     this.children.chatHeader = this.createDialogChatHeader(newProps)
     return true
   }

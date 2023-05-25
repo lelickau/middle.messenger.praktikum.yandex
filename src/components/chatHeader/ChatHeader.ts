@@ -23,7 +23,6 @@ class ChatHeader extends Block<ChatHeaderProps> {
       events: {
         click: async () => {
           if (this.props.chatId) {
-            console.log(this.props)
             await ChatsController.deleteChat(this.props.chatId)
             await ChatsController.getChats()
             ChatsController.selectChat(null)
