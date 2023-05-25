@@ -34,7 +34,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   switch (window.location.pathname) {
     case Routes.Auth:
     case Routes.SignUp:
-      isProtectedRoute = true
+      isProtectedRoute = false
       break
     default:
       if (!Object.values(Routes).includes(window.location.pathname)) {

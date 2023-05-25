@@ -51,6 +51,7 @@ class DialogChatsArea extends Block {
       name: props.selectedId
         ? props.list.data.find(item => item.id === props.selectedId)?.title
         : null,
+      chatId: props.selectedId,
       settings: {
         events: {
           click: () => {
