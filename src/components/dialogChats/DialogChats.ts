@@ -39,6 +39,7 @@ class DialogChatsArea extends Block {
   }
 
   componentDidUpdate(_: any, newProps: any) {
+    console.log('header', newProps.selectedId)
     this.children.chatHeader = this.createDialogChatHeader(newProps)
     return true
   }
@@ -51,6 +52,7 @@ class DialogChatsArea extends Block {
       name: props.selectedId
         ? props.list.data.find(item => item.id === props.selectedId)?.title
         : null,
+      chatId: props.selectedId,
       settings: {
         events: {
           click: () => {

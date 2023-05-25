@@ -49,7 +49,15 @@ class ChatsController {
 
   }
 
-  selectChat(id: number) {
+  async deleteChat(id: number) {
+    try {
+      await this.api.deleteChat(id)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  selectChat(id: number | null) {
     store.set('chats.selectedId', id)
   }
 
@@ -65,7 +73,6 @@ class ChatsController {
     }
 
   }
-
   
   async getUsers(id: number): Promise<IUser[]> {
     return this.api.getUsers(id)

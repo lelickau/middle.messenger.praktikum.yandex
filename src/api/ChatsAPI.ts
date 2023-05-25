@@ -27,6 +27,10 @@ export class ChatsAPI extends BaseAPI {
     return this.http.put('/users', { users, chatId: id })
   }
 
+  deleteChat(id: number): Promise<unknown> {
+    return this.http.delete('/', { chatId: id })
+  }
+
   deleteUsers(id: number, users: number[]): Promise<unknown> {
     return this.http.delete('/users', { users, chatId: id })
   }

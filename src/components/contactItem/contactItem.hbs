@@ -1,6 +1,6 @@
 <li class="contact {{ activeClass }}">
   <div class="contact__img-box">
-    {{{ avatar }}}
+    <img class="contact__img" src="{{#if avatar}}https://ya-praktikum.tech/api/v2/resources{{avatar}}{{else}}{{defAvatar}}{{/if}}" alt="Contact Image">
     <div class="contact__img-name">{{ nameLetter }}</div>
   </div>
   <div class="contact__content">

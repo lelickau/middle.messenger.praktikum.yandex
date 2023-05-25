@@ -27,14 +27,14 @@ class SidebarChatArea extends Block {
       }
     })
   }
-
+  
   protected componentDidUpdate(_: any, newProps: any): boolean {
     this.children.nodesData = this.createChats(newProps)
-
     return true
   }
 
   private createChats(props: { chats: any }) {
+    console.log(props.chats)
     return props.chats.map((item: any) => new ContactItem({
       title: item.title,
       nameLetter: item.title[0].toUpperCase(),
