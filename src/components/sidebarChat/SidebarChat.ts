@@ -34,7 +34,6 @@ class SidebarChatArea extends Block {
   }
 
   private createChats(props: { chats: any }) {
-    console.log(props.chats)
     return props.chats.map((item: any) => new ContactItem({
       title: item.title,
       nameLetter: item.title[0].toUpperCase(),
