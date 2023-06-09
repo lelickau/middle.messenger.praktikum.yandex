@@ -6,9 +6,29 @@ enum Methods {
   PATCH = 'PATCH'
 }
 
+function queryStringify(data: Record<string, unknown>): string {
+  const paramsArray: string[] = []
+
+  Object.entries(data).forEach(([key, value], index) => {
+    const prefix = index === 0 ? '?' : '&'
+
+    paramsArray.push(`${prefix}${key}=${value}`)
+  })
+
+  return paramsArray.join('')
+}
+
+
 type Options = {
   method: Methods
-  data?: any
+  data?: Record<string, unknown>
+  options?: Record<string, string>,
+  timeout?: number,
+  headers?: Record<string, string>
+}
+
+interface IHTTPMethod {
+  <Response>(path: string, data?: { [key: string]: any }): Promise<Response>
 }
 
 class HTTPTransport {
@@ -19,46 +39,41 @@ class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`
   }
 
-  public get<Response>(path = '/'): Promise<Response> {
-    return this.request<Response>(this.endpoint + path)
+  public get: IHTTPMethod = (path = '/', data) => {
+    let newPath = this.endpoint + path
+
+    if (data) newPath += queryStringify(data)
+
+    return this.request(newPath, { method: Methods.GET })
   }
   
-  public post<Response = void>(path: string, data?: unknown): Promise<Response> {
-    return this.request<Response>(this.endpoint + path, {
-      method: Methods.POST,
-      data
-    })
-  }
+  public post: IHTTPMethod = (path, data) => this.request(
+    this.endpoint + path,
+    { method: Methods.POST, data }
+  )
 
-  public put<Response = void>(path: string, data: unknown): Promise<Response> {
-    return this.request<Response>(this.endpoint + path, {
-      method: Methods.PUT,
-      data
-    })
-  }
+  public put: IHTTPMethod = (path, data) => this.request(
+    this.endpoint + path,
+    { method: Methods.PUT, data }
+  )
 
-  public patch<Response = void>(path: string, data: unknown): Promise<Response> {
-    return this.request<Response>(this.endpoint + path, {
-      method: Methods.PATCH,
-      data
-    })
-  }
+  public delete: IHTTPMethod = (path, data) => this.request(
+    this.endpoint + path,
+    { method: Methods.DELETE, data }
+  )
 
-  public delete<Response>(path: string, data?: unknown): Promise<Response> {
-    return this.request<Response>(this.endpoint + path, {
-      method: Methods.DELETE,
-      data
-    })
-  }
-
-	private request<Response>(
+	private request = <Response>(
     url: string, options: Options = { method: Methods.GET }
-  ): Promise<Response> {
-    const { method, data } = options
+  ): Promise<Response> => {
+    const { method, data, headers } = options
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
       xhr.open(method, url)
+
+      if (headers) {
+        Object.entries(headers).forEach(([key, value]) => xhr.setRequestHeader(key, value))
+      }
 
       xhr.onreadystatechange = function() {
         if (xhr.readyState === XMLHttpRequest.DONE) {
