@@ -5,7 +5,8 @@
   "source": "src/index.js",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
-    "start": "parcel index.html --port 3000",
+    "start": "npm run build  && node ./server.js",
+    "dev": "parcel index.html --port 3000",
     "build": "parcel build index.html",
     "stylelint": "stylelint 'src/**/*{.css,.scss}'",
     "stylelint:fix": "stylelint 'src/**/*{.css,.scss}' --fix"
