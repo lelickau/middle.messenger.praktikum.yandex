@@ -1,11 +1,23 @@
-import queryStringify from "../../helpers/queryStringify"
-
 enum Methods {
   GET = 'GET',
   POST = 'POST',
   PUT = 'PUT',
-  DELETE = 'DELETE'
+  DELETE = 'DELETE',
+  PATCH = 'PATCH'
 }
+
+function queryStringify(data: Record<string, unknown>): string {
+  const paramsArray: string[] = []
+
+  Object.entries(data).forEach(([key, value], index) => {
+    const prefix = index === 0 ? '?' : '&'
+
+    paramsArray.push(`${prefix}${key}=${value}`)
+  })
+
+  return paramsArray.join('')
+}
+
 
 type Options = {
   method: Methods
