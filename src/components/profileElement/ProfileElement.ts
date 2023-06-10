@@ -3,7 +3,7 @@ import template from './profileElement.hbs'
 
 interface ErrorBtnProps {
   title: string
-  value: string
+  value: any
 }
 
 export class ProfileElement extends Block<ErrorBtnProps> {

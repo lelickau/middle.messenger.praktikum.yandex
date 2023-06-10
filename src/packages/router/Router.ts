@@ -1,15 +1,15 @@
 import Block from '../block/Block'
 
 
-export interface BlockConstructable<P = any> {
-  new(props: P): Block
+export interface BlockConstructable<P extends { [key: string]: any } = any> {
+  new (props: P): Block<P>
 }
 
 function isEqual(lhs: string, rhs: string): boolean {
   return lhs === rhs
 }
 
-function render(query: string, block: Block) {
+function render(query: string, block: Block<any>) {
   const root = document.querySelector(query)
 
   if (root === null) {
@@ -24,7 +24,7 @@ function render(query: string, block: Block) {
 }
 
 class Route {
-  private block: Block | null = null
+  private block: Block<any> | null = null
 
   constructor(
     private pathname: string,
@@ -85,6 +85,12 @@ export class Router {
 
   public forward() {
     this.history.forward()
+  }
+
+  replace(pathname: string) {
+    this.history.replaceState({}, '', pathname)
+
+    this._onRoute(pathname)
   }
 
   public start() {

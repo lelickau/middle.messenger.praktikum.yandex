@@ -7,7 +7,7 @@ import Block from '../../packages/block/Block'
 import ChatsController from '../../controllers/ChatsController'
 import template from './chat.hbs'
 
-class ChatPage extends Block {
+class ChatPage extends Block<Record<string, never>> {
   init() {
     this.children.chatDialog = new DialogChats({})
     this.children.chatSidebar = new SidebarChat({ isLoading: true })

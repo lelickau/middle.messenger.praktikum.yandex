@@ -1,40 +1,31 @@
-type Handler<A extends any[] = unknown[]> = (...args: A) => void
-type MapInterface<P> = P[keyof P]
-
-export class EventBus<
-  E extends Record<string, string> = Record<string, string>,
-  Args extends Record<MapInterface<E>, any[]> = Record<string, any[]>
-> {
+class EventBus<E extends { [Ev: string]: unknown[] }> {
   private readonly listeners: {
-    [K in MapInterface<E>]?: Handler<Args[K]>[]
+    [K in keyof E]?: Array<(...args: E[K]) => void>
   } = {}
 
-  on<Event extends MapInterface<E>> (event: Event, callback: Handler<Args[Event]>) {
+  on<K extends keyof E>(event: K, callback: (...args: E[K]) => void) {
     if (!this.listeners[event]) {
       this.listeners[event] = []
     }
 
-
-    this.listeners[event]?.push(callback)
+    this.listeners[event]!.push(callback)
   }
 
-  off<Event extends MapInterface<E>>(event: Event, callback: Handler<Args[Event]>) {
+  off<K extends keyof E>(event: K, callback: (...args: E[K]) => void) {
     if (!this.listeners[event]) {
-      throw new Error(`Нет события: ${event}`)
+      throw new Error(`No such event '${String(event)}'`)
     }
 
-    this.listeners[event] = this.listeners[event]!.filter(
-      listener => listener !== callback
-    )
+    this.listeners[event] = this.listeners[event]!.filter(listener => listener !== callback)
   }
 
-  emit<Event extends MapInterface<E>>(event: Event, ...args: Args[Event]) {
+  emit<K extends keyof E>(event: K, ...args: E[K]) {
     if (!this.listeners[event]) {
       return
     }
 
-    this.listeners[event]!.forEach(listener => {
-      listener(...args)
-    })
+    this.listeners[event]!.forEach(listener => listener(...args))
   }
 }
+
+export default EventBus

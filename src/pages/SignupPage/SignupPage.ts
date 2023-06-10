@@ -11,10 +11,7 @@ import setDisableBtn from '../../helpers/setDisableBtn'
 import showPassword from '../../helpers/showPassword'
 import template from './signup.hbs'
 
-class SignupPage extends Block {
-  constructor() {
-    super({})
-  }
+class SignupPage extends Block<Record<string, never>> {
 
   valid = {
     login: false,
@@ -296,8 +293,7 @@ class SignupPage extends Block {
 
   render () {
     return this.compile(template, {
-      ...this.props,
-      title: 'Регистрация'
+      ...this.props
     })
   }
 }

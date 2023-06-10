@@ -1,10 +1,14 @@
 
-import { EventBus } from '../eventBus/EventBus'
+import EventBus from '../eventBus/EventBus'
 import Block from '../block/Block'
 import { set } from '../set/set'
 import { IUser } from '../../types/IUser'
 import { IChat } from '../../types/IChat'
 import { IMessage } from '../../types/IMessage'
+
+type StoreTypes = {
+  'updated': [ IState ],
+}
 
 export interface IState {
   chats: {
@@ -48,7 +52,7 @@ export interface IState {
   }
 }
 
-export class Store extends EventBus {
+export class Store extends EventBus<StoreTypes> {
   static EVENTS = {
     UPDATED: 'updated'
   } as const
@@ -101,7 +105,7 @@ export class Store extends EventBus {
 const store = new Store()
 
 export function withStore<SP>(mapStateToProps: (state: IState) => any) {
-  return function wrap<P>(Component: typeof Block){
+  return function wrap<P>(Component: typeof Block<any>){
     let previousState: any
 
     return class WithStore extends Component {

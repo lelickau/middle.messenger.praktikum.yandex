@@ -2,7 +2,11 @@ import { NavLink } from '../../components/navLink/NavLink'
 import Block from '../../packages/block/Block'
 import template from './notFound.hbs'
 
-class NotFound extends Block {
+interface INotFound {
+  code: string
+  text: string
+}
+class NotFound extends Block<INotFound> {
   constructor() {
     super({
       code: '404',

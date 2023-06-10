@@ -8,7 +8,7 @@ import UserItem from '../userItem/UserItem'
 import UserList from '../userList/UserList'
 import ModalEditCloseButton from '../modalEditCloseButton/ModalEditCloseButton'
 
-class DeleteUser extends Block {
+class DeleteUser extends Block<Record<string, never>> {
   constructor(props: any) {
     super({ ...props, modalsList: true })
   }

@@ -169,10 +169,7 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
   }
 
   &__show {
@@ -246,13 +243,14 @@
   
 .message-opp,
 .message-my {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    padding: 11px 11px 24px;
-    max-width: 65%;
-    margin-top: 20px;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 11px 11px 24px;
+  max-width: 65%;
+  width: fit-content;
+  margin-top: 20px;
   
     &__text {
       font-weight: 400;

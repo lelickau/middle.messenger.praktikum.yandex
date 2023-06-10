@@ -11,6 +11,7 @@ interface ChatHeaderProps {
   name: any
   settings: ChatSettingsProps
   chatId: number | undefined
+  img?: string
 }
 
 class ChatHeader extends Block<ChatHeaderProps> {

@@ -9,7 +9,7 @@ import Label from '../../components/inputElement/label/Label'
 import AuthController from '../../controllers/AuthController'
 import template from './login.hbs'
 
-class LoginPage extends Block {
+class LoginPage extends Block<Record<string, never>> {
   constructor() {
     super({})
   }
@@ -112,8 +112,7 @@ class LoginPage extends Block {
 
   render() {
     return this.compile(template, {
-      ...this.props,
-      title: 'Вход'
+      ...this.props
     })
   }
 }

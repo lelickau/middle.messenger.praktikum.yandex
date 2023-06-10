@@ -6,6 +6,7 @@ import defImg from '../../../static/img/def-img.png'
 interface LabelUploadProps {
   input: InputUploadProps
   img: string
+  defImg?: any
 }
 
 

@@ -4,6 +4,7 @@ import defAvatar from '../../../static/img/def-img.png'
 
 export interface IAvatarProps {
   src: string
+  defAvatar?: string
 }
 
 class Avatar extends Block<IAvatarProps> {

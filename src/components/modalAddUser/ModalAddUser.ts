@@ -9,7 +9,7 @@ import ProfileController from '../../controllers/ProfileController'
 import ModalEditCloseButton from '../modalEditCloseButton/ModalEditCloseButton'
 import ErrorItem from '../errorItem/ErrorItem'
 
-class AddUser extends Block {
+class AddUser extends Block<Record<string, never>> {
   init() {
     this.children.closeButton = new ModalEditCloseButton({
       events: {

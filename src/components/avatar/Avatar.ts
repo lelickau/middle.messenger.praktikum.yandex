@@ -5,6 +5,7 @@ import defImg from '../../static/img/def-img.png'
 interface AvatarProps {
   src: string
   alt: string
+  defImg?: string
 }
 
 class Avatar extends Block<AvatarProps> {
