@@ -11,14 +11,5 @@ module.exports = {
         host: 'localhost',
         port: 3000,
         historyApiFallback: true
-    },
-    module: {
-        rules: [
-            {
-                test: /\.s[ac]ss$/i,
-                use: [stylesHandler, 'css-loader', 'sass-loader']
-            }
-
-        ]
     }
 }
