@@ -7,7 +7,7 @@ import SendBtn from '../sendBtn/SendBtn'
 import ModalEditCloseButton from '../modalEditCloseButton/ModalEditCloseButton'
 import template from './modalCreateChat.hbs'
 
-class CreateChat extends Block {
+class CreateChat extends Block<Record<string, never>> {
   init() {
     this.children.closeButton = new ModalEditCloseButton({
       events: {

@@ -1,4 +1,4 @@
-import { EventBus } from '../eventBus/EventBus'
+import EventBus from '../eventBus/EventBus'
 
 
 export enum WSTransportEvents {
@@ -8,9 +8,9 @@ export enum WSTransportEvents {
   Close = 'close',
 }
 
-export default class WSTransport extends EventBus {
+export default class WSTransport extends EventBus<any> {
   private socket: WebSocket | null = null
-  private pingInterval: number = 0
+  private pingInterval: ReturnType<typeof setInterval> | number = 0
 
   constructor(private url: string) {
     super()

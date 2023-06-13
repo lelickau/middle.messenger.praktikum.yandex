@@ -8,7 +8,7 @@ import CreateChatBtn from '../createChatBtn/CreateChatBtn'
 import { SettingsBtn } from '../settingsBtn/SettingsBtn'
 import template from './sidebarChat.hbs'
 
-class SidebarChatArea extends Block {
+class SidebarChatArea extends Block<any> {
   init() {
     this.children.settingsBtn = new SettingsBtn({
       to: '/settings',

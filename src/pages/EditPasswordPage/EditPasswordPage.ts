@@ -8,7 +8,7 @@ import setDisableBtn from '../../helpers/setDisableBtn'
 import showPassword from '../../helpers/showPassword'
 import template from './editPassword.hbs'
 
-class EditPasswordPage extends Block {
+class EditPasswordPage extends Block<Record<string, never>> {
   constructor() {
     super({})
   }
@@ -174,8 +174,7 @@ class EditPasswordPage extends Block {
 
   render() {
     return this.compile(template, {
-      ...this.props,
-      title: 'Сменить пароль'
+      ...this.props
     })
   }
 }

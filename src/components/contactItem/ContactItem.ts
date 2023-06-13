@@ -11,6 +11,7 @@ interface IButtonProps {
   time: string | null
   total?: TotalMessProps
   message: string
+  defAvatar?: string
   events?: {
     click: () => void
   }

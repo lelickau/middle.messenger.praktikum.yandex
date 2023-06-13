@@ -49,7 +49,7 @@ const dataLabels = [
   }
 ]
 
-class EditProfile extends Block {
+class EditProfile extends Block<Record<string, any>> {
   valid = {
     first_name: true,
     second_name: true,
@@ -66,7 +66,7 @@ class EditProfile extends Block {
     })
 
     this.children.avatar = new LabelUpload({
-      img: this.props.data.avatar,
+      img: this.props.data?.avatar,
       input: {
         events: {
           input: async (e) => {

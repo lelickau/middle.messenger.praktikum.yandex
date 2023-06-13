@@ -5,7 +5,7 @@ interface IErrorProps {
   text: string
 }
 
-class ErrorItem extends Block {
+class ErrorItem extends Block<IErrorProps> {
   constructor(props: IErrorProps) {
     super(props)
   }

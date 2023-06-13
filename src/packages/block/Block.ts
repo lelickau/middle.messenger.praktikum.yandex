@@ -1,115 +1,189 @@
-import { EventBus } from '../eventBus/EventBus'
-import { nanoid } from 'nanoid'
+import { TemplateDelegate } from 'handlebars'
+import EventBus from '../eventBus/EventBus'
 
-class Block<P extends Record<string, any> = any> {
+type BlockTypes<P = any> = {
+  'init': [],
+  'component-did-mount': [],
+  'render': [],
+  'component-did-update': [P, P]
+}
 
+class Block<Props extends { [key: string]: any }, Element extends HTMLElement = HTMLElement> {
   static EVENTS = {
     INIT: 'init',
-    FLOW_CDM: 'flow:component-did-mount',
-    FLOW_CDU: 'flow:component-did-update',
-    FLOW_RENDER: 'flow:render'
+    CDM: 'component-did-mount',
+    RENDER: 'render',
+    CDU: 'component-did-update'
   } as const
 
-  public id = nanoid(8)
-  protected props: P
-  public children: Record<string, any>
-  private eventBus: () => EventBus
-  private _element: HTMLElement | null = null
+  id = window.crypto.getRandomValues(new Uint32Array(1)).toString()
+  private _element: Element
+  private eventBus: EventBus<BlockTypes<Props>>
+  props: Props
+  children: Record<string, any>
 
-  constructor(propsWithChildren: P) {
+  constructor(propsAndChildren: Props = {} as Props) {
     const eventBus = new EventBus()
+    const { props, children } = this._getPropsAndChildren(propsAndChildren as Props)
 
-    const { props, children } = this._getChildrenAndProps(propsWithChildren)
-
-    this.children = children
     this.props = this._makePropsProxy(props)
-
-    this.eventBus = () => eventBus
+    this.children = children
+    this.eventBus = eventBus
 
     this._registerEvents(eventBus)
-
-    eventBus.emit(Block.EVENTS.INIT)
+    this.eventBus.emit(Block.EVENTS.INIT)
   }
 
-  private _getChildrenAndProps(
-    childrenAndProps: P
-  ): { props: P, children: Record<string, Block | Block[]> } {
-    const props: Record<string, unknown> = {}
-    const children: Record<string, Block | Block[]> = {}
-
-    Object.entries(childrenAndProps).forEach(([key, value]) => {
-      if (Array.isArray(value) && value.length > 0 && value.every(v => v instanceof Block)) {
-        children[key as string] = value
-      } else if (value instanceof Block) {
-        children[key as string] = value
-      } else {
-        props[key as string] = value
-      }
-    })
-
-    return {props: props as P, children}
-  }
-
-  private _addEvents() {
-    const {events = {}} = this.props as P
-
-    Object.keys(events).forEach(eventName => {
-      this._element?.addEventListener(eventName, events[eventName])
-    })
-  }
-  
-  private _removeEvents() {
-    const {events = {}} = this.props as P
-
-    Object.keys(events).forEach(eventName => {
-      this._element?.removeEventListener(eventName, events[eventName])
-    })
-  }
-
-  private _registerEvents(eventBus: EventBus) {
+  private _registerEvents(eventBus: EventBus<BlockTypes>) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this))
-    eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
-    eventBus.on(Block.EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
-    eventBus.on(Block.EVENTS.FLOW_RENDER, this._render.bind(this))
+    eventBus.on(Block.EVENTS.CDM, this._componentDidMount.bind(this))
+    eventBus.on(Block.EVENTS.RENDER, this._render.bind(this))
+    eventBus.on(Block.EVENTS.CDU, this._componentDidUpdate.bind(this))
   }
 
   private _init() {
     this.init()
-
-    this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
+    this.eventBus.emit(Block.EVENTS.RENDER)
   }
 
-  protected init() {}
+  protected init(): void | null {
+    return null
+  }
 
   private _componentDidMount() {
     this.componentDidMount()
   }
 
-  protected componentDidMount() {}
+  protected componentDidMount() {
+    return true
+  }
 
-  public dispatchComponentDidMount() {
-    this.eventBus().emit(Block.EVENTS.FLOW_CDM)
+  dispatchComponentDidMount() {
+    this.eventBus.emit(Block.EVENTS.CDM)
 
-    Object.values(this.children).forEach(child => {
+    Object.values(this.children).forEach((child) => {
       if (Array.isArray(child)) {
-        child.forEach(ch => ch.dispatchComponentDidMount())
+        child.forEach(component => component.dispatchComponentDidMount())
       } else {
         child.dispatchComponentDidMount()
       }
     })
   }
 
-  private _componentDidUpdate(oldProps: P, newProps: P) {
+  private _render() {
+    const fragment = this.render()
+    const newElement = fragment.firstChild as Element
+
+    if (this._element) {
+      this._removeEvents()
+
+      this._element.replaceWith(newElement)
+    }
+
+    this._element = newElement
+
+    this._addEvents()
+  }
+
+  protected render(): DocumentFragment {
+    return new DocumentFragment()
+  }
+
+  private _componentDidUpdate(oldProps?: Props, newProps?: Props) {
     if (this.componentDidUpdate(oldProps, newProps)) {
-      this.eventBus().emit(Block.EVENTS.FLOW_RENDER)
+      this.eventBus.emit(Block.EVENTS.RENDER)
     }
   }
 
-  protected componentDidUpdate(oldProps: P, newProps: P) {
-    return true
+  protected componentDidUpdate(oldProps?: Props, newProps?: Props) {
+    if (oldProps && newProps) return true
+    return false
   }
 
-  setProps = (nextProps: Partial<P>) => {
+  private _getPropsAndChildren(propsAndChildren: Props) {
+    const props = {} as Props
+    const children: Record<string, Block<Props> | Block<Props>[]> = {}
+
+    Object.entries(propsAndChildren).forEach(([key, value]) => {
+      if (Array.isArray(value) && value.length > 0 && value.every(el => el instanceof Block)) {
+        children[key] = value
+      } else if (value instanceof Block) {
+        children[key] = value
+      } else {
+        props[key as keyof Props] = value
+      }
+    })
+
+    return { props, children }
+  }
+
+  private _makePropsProxy(props: Props) {
+    return new Proxy(props, {
+      get(target, prop) {
+        const value = target[prop as keyof Props]
+
+        return typeof value === 'function' ? value.bind(target) : value
+      },
+      set: (target, prop, value) => {
+        const oldTarget = { ...target }
+
+        target[prop as keyof Props] = value
+
+        this.eventBus.emit(Block.EVENTS.CDU, oldTarget, target)
+        return true
+      }
+    })
+  }
+
+  private _addEvents() {
+    const { events = {} } = this.props
+
+    Object.keys(events).forEach(eventName => this._element.addEventListener(eventName, events[eventName]))
+  }
+
+  private _removeEvents() {
+    const { events = {} } = this.props
+
+    Object.keys(events).forEach(eventName => this._element.removeEventListener(eventName, events[eventName]))
+  }
+
+  protected compile(template: TemplateDelegate, props: Props) {
+    const propsAndStubs: { [key: string]: any } = { ...props }
+
+    Object.entries(this.children).forEach(([name, component]) => {
+      if (Array.isArray(component)) {
+        propsAndStubs[name] = component.map(child => `<div data-id="${child.id}"></div>`)
+      } else {
+        propsAndStubs[name] = `<div data-id="${component.id}"></div>`
+      }
+    })
+
+    const html = template(propsAndStubs as Props)
+
+    const stubTemplate = document.createElement('template')
+
+    stubTemplate.innerHTML = html
+
+    Object.entries(this.children).forEach(([_, component]) => {
+      if (Array.isArray(component)) {
+        component.forEach(child => this._replaceStubWithContent(stubTemplate, child))
+      } else {
+        this._replaceStubWithContent(stubTemplate, component)
+      }
+    })
+
+    return stubTemplate.content
+  }
+
+  private _replaceStubWithContent(stubTemplate: HTMLTemplateElement, component: Block<Props>) {
+    const stub = stubTemplate.content.querySelector(`[data-id="${component.id}"]`)
+
+    if (!stub) return
+
+    stub.replaceWith(component.getContent())
+  }
+
+  setProps = (nextProps: Partial<Props>) => {
     if (!nextProps) {
       return
     }
@@ -121,89 +195,17 @@ class Block<P extends Record<string, any> = any> {
     return this._element
   }
 
-  private _render() {
-    const fragment = this.render()
-    this._removeEvents()
-
-    const newElement = fragment.firstElementChild as HTMLElement
-
-    if (this._element && newElement) {
-      this._element.replaceWith(newElement)
-    }
-
-    this._element = newElement
-
-    this._addEvents()
-  }
-
-  protected compile(template: (context: any) => string, context: any) {
-    const contextAndStubs = {...context}
-
-    Object.entries(this.children).forEach(([name, component]) => {
-      if (Array.isArray(component)) {
-        contextAndStubs[name] = component.map(child => `<div data-id="${child.id}"></div>`)
-      } else {
-        contextAndStubs[name] = `<div data-id="${component.id}"></div>`
-      }
-    })
-
-    const html = template(contextAndStubs)
-
-    const temp = document.createElement('template')
-
-    temp.innerHTML = html
-
-    const replaceStub = (component: Block) => {
-      const stub = temp.content.querySelector(`[data-id="${component.id}"]`)
-      if (!stub) {
-        return
-      }
-
-      component.getContent()?.append(...Array.from(stub.childNodes))
-
-      stub.replaceWith(component.getContent()!)
-    }
-
-    Object.entries(this.children).forEach(([_, component]) => {
-      if (Array.isArray(component)) {
-        component.forEach(replaceStub)
-      } else {
-        replaceStub(component)
-      }
-    })
-
-    return temp.content
-  }
-
-  protected render(): DocumentFragment {
-    return new DocumentFragment()
-  }
-
   getContent() {
     return this.element
   }
 
-  private _makePropsProxy(props: P) {
-    const self = this
+  show() {
+    this.element.style.display = 'block'
+  }
 
-    return new Proxy(props, {
-      get(target, prop: string) {
-        const value = target[prop]
-        return typeof value === 'function' ? value.bind(target) : value
-      },
-      set(target, prop: string, value) {
-        const oldTarget = {...target}
-
-        target[prop as keyof P] = value
-
-      self.eventBus().emit(Block.EVENTS.FLOW_CDU, oldTarget, target)
-        return true
-      },
-
-      deleteProperty() {
-        throw new Error('Нет доступа')
-      }
-    })
+  hide() {
+    this.element.style.display = 'none'
   }
 }
+
 export default Block

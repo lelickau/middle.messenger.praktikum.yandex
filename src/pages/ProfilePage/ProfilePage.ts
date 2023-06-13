@@ -17,7 +17,7 @@ const dataInfo = [
   { title: 'Телефон', value: 'phone' }
 ]
 
-class Profile extends Block {
+class Profile extends Block<Record<string, any>> {
 
   init() {
     this.children.comeBack = new ComeBack({
@@ -26,7 +26,7 @@ class Profile extends Block {
     })
 
     this.children.avatar = new Avatar({
-      src: this.props.data?.avatar,
+      src: this.props.data?.avatar || '',
       alt: 'Аватар не загрузился'
     })
 
@@ -60,12 +60,12 @@ class Profile extends Block {
         }
       }
     })
+
   }
 
   render() {
     return this.compile(template, {
-      ...this.props,
-      title: 'Иван'
+      ...this.props
     })
   }
 }

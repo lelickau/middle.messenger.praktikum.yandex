@@ -7,7 +7,11 @@ import MessagesController from '../../controllers/MessagesController'
 import ModalsController from '../../controllers/ModalsController'
 import template from './dialogChats.hbs'
 
-class DialogChatsArea extends Block {
+interface IDialogChatsArea {
+  show: boolean
+}
+
+class DialogChatsArea extends Block<IState['chats'] & IDialogChatsArea> {
   init() {
     this.children.chatHeader = this.createDialogChatHeader(this.props)
     this.children.chatDialogMessages = new DialogChatMessages({})

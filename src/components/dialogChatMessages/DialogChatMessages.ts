@@ -8,7 +8,7 @@ import template from './dialogChatMessages.hbs'
 
 type InterfacePropsWithStore = { messages: Message[], userId: number, selectedChatId: number }
 
-class ChatMessages extends Block {
+class ChatMessages extends Block<InterfacePropsWithStore> {
   init() {
     this.children.messages = this.createMessages(this.props)
   }

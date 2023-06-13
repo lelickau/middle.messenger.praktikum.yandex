@@ -5,7 +5,7 @@ import ModalEditButton from '../modalEditButton/ModalEditButton'
 import ModalEditCloseButton from '../modalEditCloseButton/ModalEditCloseButton'
 import template from './modalSettingsChat.hbs'
 
-class ModalSettings extends Block {
+class ModalSettings extends Block<Record<string, never>> {
   init() {
     this.children.addUserButton = new ModalEditButton({
       title: 'Добавить пользователя',
